@@ -1,4 +1,4 @@
-package com.imooc.spark;
+package com.imooc;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
