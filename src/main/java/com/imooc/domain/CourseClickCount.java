@@ -1,8 +1,11 @@
 package com.imooc.domain;
 
+import org.springframework.stereotype.Component;
+
 /**
  * 实战课程访问数量实体类
  */
+@Component
 public class CourseClickCount {
     private String name;
     private long value;

@@ -2,6 +2,7 @@ package com.imooc.dao;
 
 import com.imooc.domain.CourseClickCount;
 import com.imooc.utils.HBaseUtils;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.Map;
 /**
  * 实战课程访问数量数据访问层
  */
+@Component
 public class CourseClickCountDAO {
 
     public List<CourseClickCount> query(String day) throws Exception {
