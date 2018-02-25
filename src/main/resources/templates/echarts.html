@@ -5,6 +5,7 @@
     <title>echarts</title>
     <!-- 引入 ECharts 文件 -->
     <script src="js/echarts.min.js"></script>
+    <script src="js/jquery-3.1.1.js"></script>
 </head>
 <body>
 这是通过echarts请求过来页面......
@@ -28,7 +29,7 @@
         legend: {
             orient: 'vertical',
             left: 'left',
-            data: ['Spark SQL实战','Spark Streaming实战','Hadoop基础','Storm实战','大数据面试','Flume实战']
+            // data: ['Spark SQL实战','Spark Streaming实战','Hadoop基础','Storm实战','大数据面试','Flume实战']
         },
         series : [
             {
@@ -36,14 +37,23 @@
                 type: 'pie',
                 radius : '55%',
                 center: ['50%', '60%'],
-                data:[
-                    {value:1500, name:'Spark SQL实战'},
-                    {value:2700, name:'Spark Streaming实战'},
-                    {value:3300, name:'Hadoop基础'},
-                    {value:800, name:'Storm实战'},
-                    {value:999, name:'大数据面试'},
-                    {value:450, name:'Flume实战'}
-                ],
+                data:(function () { //<![CDATA[
+                    var datas = [];
+                    $.ajax({
+                        type: "POST",
+                        url: "/imooc/course_click_dynamic",
+                        dataType: "json",
+                        async: false,
+                        success: function (result) {
+                            for (var i=0; i < result.length; i++) {
+                                datas.push({"value":result[i].value, "name":result[i].name })
+                            }
+                            
+                        }
+                    })
+                    return datas;
+                    //]]>
+                }) (),
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,

@@ -7,6 +7,7 @@ import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -35,20 +36,31 @@ public class ImoocStatAPP {
     @Autowired
     CourseClickCountDAO courseClickCountDAO;
 
-    @RequestMapping(value = "/course_click_dynamic", method = RequestMethod.GET)
-    public ModelAndView courseClickCount() throws Exception {
-        ModelAndView view = new ModelAndView("index");
+//    @RequestMapping(value = "/course_click_dynamic", method = RequestMethod.GET)
+//    public ModelAndView courseClickCount() throws Exception {
+//        ModelAndView view = new ModelAndView("index");
+//
+//        //使用json,引用dependency：pom.xml添加依赖
+//        List<CourseClickCount> list = courseClickCountDAO.query("20180224");
+//        for (CourseClickCount model : list) {
+//            model.setName(courses.get(model.getName().substring(9)));
+//        }
+//        JSONArray json = JSONArray.fromObject(list);
+//
+//        view.addObject("data_json", json);
+//
+//        return view;
+//    }
 
-        //使用json,引用dependency：pom.xml添加依赖
+    @RequestMapping(value = "/course_click_dynamic", method = RequestMethod.POST)
+    @ResponseBody
+    public List<CourseClickCount> courseClickCount() throws Exception {
+
         List<CourseClickCount> list = courseClickCountDAO.query("20180224");
         for (CourseClickCount model : list) {
             model.setName(courses.get(model.getName().substring(9)));
         }
-        JSONArray json = JSONArray.fromObject(list);
-
-        view.addObject("data_json", json);
-
-        return view;
+        return list;
     }
 
     @RequestMapping(value = "/echarts", method = RequestMethod.GET)
